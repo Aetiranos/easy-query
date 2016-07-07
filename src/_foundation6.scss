@@ -1,0 +1,17 @@
+@import 'base';
+
+// $sm-range: (0px, 639px)
+$sm-range: (0, 39.9375rem);
+
+// $md-range: (640px, 1023px)
+$md-range: (40rem, 63.9375rem);
+
+// $lg-range: (1024px, infinity)
+$lg-range: (64rem, 9999999rem);
+
+$md-down: '#{$screen} and (max-width: #{upper-bound($md-range)})';
+$md-up: '#{$screen} and (min-width: #{lower-bound($md-range)})';
+
+$sm-only: '#{$screen} and (max-width: #{upper-bound($sm-range)})';
+$md-only: '#{$screen} and (min-width: #{lower-bound($md-range)}) and (max-width: #{upper-bound($md-range)})';
+$lg-only: '#{$screen} and (min-width: #{lower-bound($lg-range)})';

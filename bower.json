@@ -1,0 +1,23 @@
+{
+  "name": "easy-query",
+  "version": "1.0.2",
+  "description": "An easy to use, easy to customize sheet of SCSS media queries easily tailored to any framework using SCSS.",
+  "main": "queries.scss",
+  "authors": [
+    "Derrick Wales <aetiranos@crystaltome.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aetiranos/easy-query.git"
+  },
+  "license": "GPL",
+  "keywords": [
+    "media",
+    "queries",
+    "scss",
+    "responsive",
+    "development",
+    "tools"
+  ],
+  "homepage": "https://github.com/Aetiranos/easy-query/"
+}

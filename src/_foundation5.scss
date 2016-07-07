@@ -1,0 +1,30 @@
+@import 'base';
+
+// $sm-range: (0px, 640px)
+$sm-range: (0, 40rem);
+
+// $mg-range: (641px, 1024px)
+$md-range: (40.06rem, 64rem);
+
+// $lg-range: (1025px, 1440px)
+$lg-range: (64.06rem, 90rem);
+
+// $xl-range: (1441px, 1920px)
+$xl-range: (90.06rem, 120rem);
+
+// $xx-range: (1921px, infinity)
+$xx-range: (120.06rem, 999999999rem);
+
+$md-down: '#{$screen} and (max-width: #{upper-bound($md-range)})';
+$lg-down: '#{$screen} and (max-width: #{upper-bound($lg-range)})';
+$xl-down: '#{$screen} and (max-width: #{upper-bound($xl-range)})';
+
+$md-up: '#{$screen} and (min-width: #{lower-bound($md-range)})';
+$lg-up: '#{$screen} and (min-width: #{lower-bound($lg-range)})';
+$xl-up: '#{$screen} and (min-width: #{lower-bound($xl-range)})';
+
+$sm-only: '#{$screen} and (min-width: #{lower-bound($sm-range)}) and (max-width: #{upper-bound($sm-range)})';
+$md-only: '#{$screen} and (min-width: #{lower-bound($md-range)}) and (max-width: #{upper-bound($md-range)})';
+$lg-only: '#{$screen} and (min-width: #{lower-bound($lg-range)}) and (max-width: #{upper-bound($lg-range)})';
+$xl-only: '#{$screen} and (min-width: #{lower-bound($lg-range)}) and (max-width: #{upper-bound($xl-range)})';
+$xx-only: '#{$screen} and (min-width: #{lower-bound($lg-range)})';
