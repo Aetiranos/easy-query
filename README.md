@@ -1,6 +1,6 @@
-#Easy Query
+#EasyQuery
 
-Easy Query is a porting of Foundation media queries to be usable with any web project, providing users with easy to use methods of shorthand writing customizable media queries. The package by default includes various SCSS files with settings set to the breakpoints of popular, existing frameworks such as Bootstrap 3 and Foundation 5.  
+EasyQuery is a porting of Foundation media queries to be usable with any web project, providing users with easy to use methods of shorthand writing customizable media queries. The package by default includes various SCSS files with settings set to the breakpoints of popular, existing frameworks such as Bootstrap 3 and Foundation 5. It is a compliment to the frameworks, enhancing but not replacing them. If you would rather just use the media queries without any framework, that works too!
 
 ###Getting Started
 
@@ -10,9 +10,9 @@ Install via Bower: `bower install easy-query`
 
 Clone via Git: `git clone https://github.com/Aetiranos/easy-query.git`
 
-###How to Use Easy Query
+###How to Use EasyQuery
 
-Easy Query is a mobile-first responsive media query collection. In your SCSS file, add media queries easily with predefined SCSS files or create your own by filling in the _custom.scss file.
+EasyQuery is a mobile-first responsive media query collection. In your SCSS file, add media queries easily with predefined SCSS files or create your own by filling in the _custom.scss file.
 
 ```
 .block-object {
@@ -29,6 +29,10 @@ Easy Query is a mobile-first responsive media query collection. In your SCSS fil
 }
 ```
 
+In your build automation pipeline (Gulp, Grunt, etc), parse in the queries.scss file which contains an import reference to whichever media query template you'd like to use (only one, however. Things will get nasty if you import multiple.). 
+
+For instructions on how to work with an automation pipeline, visit the [GulpJS Repo](https://github.com/gulpjs/gulp) or [GruntJS Repo](https://github.com/gruntjs/grunt).
+
 ###Media Queries
 
 Here are a few examples of some of the media queries you can use, but there are others!
@@ -41,7 +45,7 @@ Here are a few examples of some of the media queries you can use, but there are 
 
 `$md-only` Only displays styles on viewports with a pixel width between 769px and 992px.
 
-`$lg-only` Only displays styles on viewports with a pixel width greater than 993px.
+`$lg-only` Only displays styles on viewports with a pixel width greater than 992px.
 
 `$xs-down` Only displays styles on viewports with a pixel width less than 480px.
 
@@ -62,11 +66,13 @@ All of the media queries were meant to be easily customizable to suit your needs
  
 A note about the media queries: If you are unfamiliar with some of the more advanced concepts of SCSS, the `#{}` part may be confusing. This is how SCSS interpolates variables to be used, much like other languages such as PHP. Placing your media query variables within this interpolation will render their style rules when output to CSS.
 
+For more in-depth SCSS info, visit the [SASS Guide](http://sass-lang.com/guide).
+
 ___
 
 ###Contributing
 
-Anyone who is interested in contributing and building this project up, feel free to do so! 
+Anyone who is interested in contributing and building this project up, feel free to do so! The more, the merrier!
 
 If you find any bugs or issues with the source code, be sure to submit an issue or submit a pull request with a fix.
 
