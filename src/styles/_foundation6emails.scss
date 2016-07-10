@@ -1,0 +1,5 @@
+$sm-range: calc(37.25rem - 1px);
+$lg-range: 37.25rem;
+
+$sm-only: '#{$screen} and (max-width: #{$sm-range})';
+$lg-only: '#{$screen} and (min-width: #{$lg-range})';

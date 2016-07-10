@@ -1,35 +1,18 @@
-@import 'base';
+$sm-range: calc(40rem - 1px);
+$md-range: (40rem, calc(64rem - 1px));
+$lg-range: (64rem, calc(90rem - 1px));
+$xl-range: (90rem, calc(120rem - 1px));
+$xx-range: 120rem;
 
-// $xs-range: (0px,399px)
-$xs-range: (0, 24.94rem);
-
-// $sm-range: (400px, 549px)
-$sm-range: (25rem, 34.31rem);
-
-// $md-range: (550px, 749px)
-$md-range: (34.38rem, 46.81rem);
-
-// $lg-range: (750px, 999px)
-$lg-range: (46.88rem, 62.44rem);
-
-// $xl-range: (1000px, 1199px)
-$xl-range: (62.5rem, 74.94rem);
-
-// $xx-range: (1200px, infinity)
-$xx-range: (75rem, 99999999rem);
-
-$sm-down: '#{$screen} and (max-width: #{upper-bound($sm-range)})';
 $md-down: '#{$screen} and (max-width: #{upper-bound($md-range)})';
 $lg-down: '#{$screen} and (max-width: #{upper-bound($lg-range)})';
 $xl-down: '#{$screen} and (max-width: #{upper-bound($xl-range)})';
 
-$sm-up: '#{$screen} and (min-width: #{lower-bound($sm-range)})';
 $md-up: '#{$screen} and (min-width: #{lower-bound($md-range)})';
 $lg-up: '#{$screen} and (min-width: #{lower-bound($lg-range)})';
 $xl-up: '#{$screen} and (min-width: #{lower-bound($xl-range)})';
 
-$xs-only: '#{$screen} and (min-width: #{lower-bound($xs-range)}) and (max-width: #{upper-bound($xs-range)})';
-$sm-only: '#{$screen} and (min-width: #{lower-bound($sm-range)}) and (max-width: #{upper-bound($sm-range)})';
+$sm-only: '#{$screen} and (max-width: #{$sm-range})';
 $md-only: '#{$screen} and (min-width: #{lower-bound($md-range)}) and (max-width: #{upper-bound($md-range)})';
 $lg-only: '#{$screen} and (min-width: #{lower-bound($lg-range)}) and (max-width: #{upper-bound($lg-range)})';
 $xl-only: '#{$screen} and (min-width: #{lower-bound($xl-range)}) and (max-width: #{upper-bound($xl-range)})';
