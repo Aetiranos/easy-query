@@ -12,7 +12,25 @@ Clone via Git: `git clone https://github.com/Aetiranos/easy-query.git`
 
 ###How to Use EasyQuery
 
-EasyQuery is a mobile-first responsive media query collection. In your SCSS file, add media queries easily with predefined SCSS files or create your own by filling in the _custom.scss file.
+EasyQuery is a mobile-first responsive media query collection. With it, you have two ways of going about implementing it into your project.
+
+The first way is to simply copy the files you need directly into your project from the src folder. 
+
+The second is to require it in your SCSS file, passing the desired framework as a parameter like so:
+
+```
+var gulp = require('gulp'),
+    easyquery = require('path/to/easy-query')('bootstrap4'),
+    sass = require('gulp-sass');
+    
+gulp.task('build', function() {
+    gulp.src(easyquery.path)
+    .pipe(sass())
+    .pipe(gulp.dest('/path/to/dest');
+}
+```
+
+Once you've gotten the above all set up, you can use it in your code like this:
 
 ```
 .block-object {
@@ -29,9 +47,54 @@ EasyQuery is a mobile-first responsive media query collection. In your SCSS file
 }
 ```
 
-In your build automation pipeline (Gulp, Grunt, etc), parse in the queries.scss file which contains an import reference to whichever media query template you'd like to use (only one, however. Things will get nasty if you import multiple.). 
+You don't have to be restricted to using popular frameworks' breakpoints. You can easily define your own as an array of objects and pass it as the parameter when requiring EasyQuery. 
+
+```
+var gulp = require('gulp'),
+    sass = require('gulp-sass'),
+    easyquery = require('/path/to/easy-query/')([
+        // $break-1
+        {
+            "min": null,
+            "max": calc(30rem - 1px),
+        },
+        // $break-2
+        {
+            "min": 30rem,
+            "max": calc(40rem - 1px)
+        },
+        // $break-3
+        {
+            "min": 40rem,
+            "max": calc(75rem - 1px)
+            },
+        // $break-4
+        {
+            "min": 75rem,
+            "max": null
+        }
+        // Etcetera
+    ]);
+```
+
+Or obviously passing in a prebuilt array, but the above was for structure example purposes. Be careful of where you place values - the breakpoints should ascend like above.
+
+When passing your own custom array of breakpoints, they will be auto named to `$break-#` where the number starts at 1 and ascends the more breakpoints you add. 
+
+if you peruse the require method of implementing EasyQuery, you can use the `easyquery.path` property to get the filepath to the custom SCSS file that was created on the fly. You can of course then just parse it like any other SCSS file. 
 
 For instructions on how to work with an automation pipeline, visit the [GulpJS Repo](https://github.com/gulpjs/gulp) or [GruntJS Repo](https://github.com/gruntjs/grunt).
+
+###Provided Framework Definitions
+
+* Bootstrap 2
+* Bootstrap 3
+* Bootstrap 4
+* Foundation 5
+* Foundation 6 for Sites
+* Foundation 6 for Apps
+* Foundation 6 for Emails
+* Skeleton 2
 
 ###Media Queries
 
@@ -59,13 +122,6 @@ Here are a few examples of some of the media queries you can use, but there are 
 
 `$md-up` Only displays styles on viewports with a pixel width greater than 768px.
 
-
-###Customizing the Media Queries
-
-All of the media queries were meant to be easily customizable to suit your needs. This project does not require Bootstrap in any way nor any other dependencies other than something to compile the SCSS (Gulp, Grunt, etc).
- 
-A note about the media queries: If you are unfamiliar with some of the more advanced concepts of SCSS, the `#{}` part may be confusing. This is how SCSS interpolates variables to be used, much like other languages such as PHP. Placing your media query variables within this interpolation will render their style rules when output to CSS.
-
 For more in-depth SCSS info, visit the [SASS Guide](http://sass-lang.com/guide).
 
 ___
@@ -77,27 +133,3 @@ Anyone who is interested in contributing and building this project up, feel free
 If you find any bugs or issues with the source code, be sure to submit an issue or submit a pull request with a fix.
 
 If you have a feature request, submit an issue ticket (particularly if this is a major request). For smaller requests, feel free to submit a pull request with the requested feature code.
-
-####Submitting an Issue or Requesting a Feature
-
-Before you submit an issue, search the project issues and discussion to ensure that it hasn't already been reported or requested (in the event of a feature). If you do encounter a problem, please be as specific as possible when reporting it (browser, browser version, any frameworks you're using in conjunction, how to recreate the issue, etc.). 
-
-####Creating a Pull Request
-
-Like with submitting an issue, be sure to search the project and discussions for previous pull requests that relate to yours. Duplicate efforts are wasted efforts!
-
-Make any changes in a new branch, making sure to not only provide the code to fix or introduce a feature, but provide commented documentation explaining the code as well. 
-
-Creating your new branch: 
-
-`git checkout -b my-branch master`
-
-For any contributed JavaScript code, please annotate it descriptively. 
-
-Finally, when pushing commits, try to be to the point but descriptive with your commit message. Essays are unnecessary. :)
-
-Pushing your code back to GitHub: 
-
-`git push origin my-branch`
-
-Then send us the pull request. 

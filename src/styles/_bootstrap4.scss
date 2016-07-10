@@ -1,0 +1,15 @@
+$sm-range: (34rem, calc(48rem - 1px));
+$md-range: (48rem, calc(62rem - 1px));
+$lg-range: (62rem, calc(75rem - 1px));
+$xl-range: 75rem;
+
+$md-down: '#{$screen} and (max-width: #{upper-bound($md-range)})';
+$lg-down: '#{$screen} and (max-width: #{upper-bound($lg-range)})';
+
+$md-up: '#{$screen} and (min-width: #{lower-bound($md-range)})';
+$lg-up: '#{$screen} and (min-width: #{lower-bound($lg-range)})';
+
+$sm-only: '#{$screen} and (max-width: #{upper-bound($sm-range)})';
+$md-only: '#{$screen} and (min-width: #{lower-bound($md-range)}) and (max-width: #{upper-bound($md-range)})';
+$lg-only: '#{$screen} and (min-width: #{lower-bound($lg-range)}) and (max-width: #{upper-bound($lg-range)})';
+$xl-only: '#{$screen} and (min-width: #{$xl-range})';
