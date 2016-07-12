@@ -25,18 +25,20 @@ module.exports = function EasyQuery(scss) {
     var queued = "$screen: 'only screen' !default;\n\n@function lower-bound($range) {\n\n  @if length($range) <= 0 {\n    @return 0;\n  }\n\n  @return nth($range, 1);\n}\n\n@function upper-bound($range) {\n\n  @if length($range) < 2 {\n    @return 999999999999;\n  }\n\n  @return nth($range, 2);\n}\n\n";
     if(arguments.length === 0 || arguments.length === 1) {
         if((arguments.length === 1 && typeof arguments[0] === 'string' ) || (arguments.length === 1 && arguments[0].constructor === Array)) {
-
             try {
-                framework = typeof arguments[0] === 'string' ? require('./frameworks/' + scss) : arguments[0];
+                if(typeof arguments[0] === 'string') {
+                    framework = require('./frameworks/' + scss);
+                } else if(arguments[0].constructor === Array) {
+                    framework = arguments[0];
+                }
+                buildLibrary(framework);
+                console.dir(framework);
             } catch(ex) {
                 throw new Error('Could not parse library: ' + scss + '. Does it exist? Error message: ' + ex);
             }
-            var $xs = "$xs", $sm = "$sm", $md = "$md", $lg = "$lg", $xl = "$xl", $xx = "$xx";
-
-            buildLibrary(arguments[0].length);
         } else {
             framework = require('./frameworks/bootstrap3');
-            buildLibrary(framework.length);
+            buildLibrary(framework);
         }
     } else {
         throw new Error('Too many arguments passed to EasyQuery. Expected 0 or 1, got ' + arguments.length);
@@ -47,14 +49,14 @@ module.exports = function EasyQuery(scss) {
             throw new Error('Could not write _easy-query.scss. Error message: ' + ex);
         }
     });
-
-
-    function generateRange(key) {
+    
+    function generateRange(framework,key) {
         return "-range: (" + framework[key] + "rem, calc(" + framework[key + 1] + " - 1px));\n";
     }
 
-    function buildLibrary(length) {
-        switch(length) {
+    function buildLibrary(framework) {
+        var $xs = "$xs", $sm = "$sm", $md = "$md", $lg = "$lg", $xl = "$xl", $xx = "$xx";
+        switch(framework.length) {
             case 1: {
                 queued +=
                     $sm + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px))';\n" +
@@ -63,7 +65,7 @@ module.exports = function EasyQuery(scss) {
             }
             case 2: {
                 queued +=
-                    $md + generateRange(0) +
+                    $md + generateRange(framework,0) +
 
                     $sm + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px))';\n" +
 
@@ -76,8 +78,8 @@ module.exports = function EasyQuery(scss) {
             }
             case 3: {
                 queued +=
-                    $sm + generateRange(0) +
-                    $md + generateRange(1) +
+                    $sm + generateRange(framework,0) +
+                    $md + generateRange(framework,1) +
 
                     $xs + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px))';\n" +
 
@@ -94,9 +96,9 @@ module.exports = function EasyQuery(scss) {
             }
             case 4: {
                 queued +=
-                    $sm + generateRange(0)+
-                    $md + generateRange(1) +
-                    $lg + generateRange(2) +
+                    $sm + generateRange(framework,0)+
+                    $md + generateRange(framework,1) +
+                    $lg + generateRange(framework,2) +
 
                     $xs + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px))';\n" +
 
@@ -118,10 +120,10 @@ module.exports = function EasyQuery(scss) {
             }
             case 5: {
                 queued +=
-                    $sm + generateRange(0) +
-                    $md + generateRange(1) +
-                    $lg + generateRange(2) +
-                    $xl + generateRange(3) +
+                    $sm + generateRange(framework,0) +
+                    $md + generateRange(framework,1) +
+                    $lg + generateRange(framework,2) +
+                    $xl + generateRange(framework,3) +
 
                     $xs + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px)';\n" +
 
