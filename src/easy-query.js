@@ -8,79 +8,142 @@ var fs = require("fs");
  *                 The breakpoints will be named numerically so that one could have any number of breakpoints without running out of
  *                 size words (small, medium, etc). And so you wont be left with an ugly xxxxxxxxxl-breakpoint if you happened to go
  *                 that not-so-recommended route.
- *      [
- *          // $break-1
- *           {
- *              "min": null,
- *              "max": calc(30rem - 1px),
- *           },
- *          // $break-2
- *           {
- *              "min": 30rem,
- *              "max": calc(40rem - 1px)
- *           },
- *          // $break-3
- *           {
- *              "min": 40rem,
- *              "max": calc(75rem - 1px)
- *           },
- *          // $break-4
- *           {
- *              "min": 75rem,
- *              "max": null
- *           }
- *          // Etcetera
- *      ]
- * @returns {{path: string, library: *, libraryPath: string}}
+ *
+ *                 ['bp1-px','bp2-px','bp3-px']
+ *
+ *                 This will generate your breakpoint SCSS code that will resemble:
+ *
+ *                 $break-1: (null, calc(bp1 - 1px);
+ *                 $break-2: (bp1, calc(bp2 - 1px);
+ *                 $break-3: (bp2, calc(bp3 - 1px);
+ *                 $break-4: (bp3, null);
+ *
+ * @returns {string}
  */
 module.exports = function EasyQuery(scss) {
-    if(arguments.length < 1) console.log('You must supply either a supported library name or a custom configuration object.');
-    else if(arguments.length === 1 && typeof arguments[0] === 'string') {
-        var path = "./__eq__.scss";
-        var base;
-        var library;
+    var framework;
+    var queued = "$screen: 'only screen' !default;\n\n@function lower-bound($range) {\n\n  @if length($range) <= 0 {\n    @return 0;\n  }\n\n  @return nth($range, 1);\n}\n\n@function upper-bound($range) {\n\n  @if length($range) < 2 {\n    @return 999999999999;\n  }\n\n  @return nth($range, 2);\n}\n\n";
+    if(arguments.length === 0 || arguments.length === 1) {
+        if((arguments.length === 1 && typeof arguments[0] === 'string' ) || (arguments.length === 1 && arguments[0].constructor === Array)) {
 
-        fs.readFile(__dirname + "/styles/_base.scss", function(err, baseData) {
-            if(err) console.log('Could not read base. Message: ' + err);
-            else {
-                fs.readFile(__dirname + "/styles/_" + scss + ".scss", function(err, libData) {
-                    if(err) console.log('Could not read library. Message: ' + err);
-                    else {
-                        fs.writeFile('./__eq__.scss', baseData);
-                        fs.appendFile('./__eq__.scss', libData);
-                    }
-                });
+            try {
+                framework = typeof arguments[0] === 'string' ? require('./frameworks/' + scss) : arguments[0];
+            } catch(ex) {
+                throw new Error('Could not parse library: ' + scss + '. Does it exist? Error message: ' + ex);
             }
-        });
+            var $xs = "$xs", $sm = "$sm", $md = "$md", $lg = "$lg", $xl = "$xl", $xx = "$xx";
 
-        return {
-            path: path,
-            library: scss,
-            libraryPath: __dirname + '/styles/_' + scss + '.scss'
-        };
-    } else if(arguments.length === 1 && typeof arguments[0] === 'object') {
-        var lib = "";
-        for(var i = 0; i < custom.length; i++) {
-            var index = i + 1;
-            if(custom[i].min === null) {
-                if(i !== 0) {
-                    console.log('Only the very first breakpoint should have a "min" property set to 0 or null!');
-                }
-                lib += "$break-" + index + ": calc(" + custom[index].min + " - 1px);\n";
-            } else if(custom[i].max === null) {
-                if(i < custom.length) {
-                    console.log('Only the very last breakpoint should have a "max" property set to null!');
-                }
-                lib += "$break-" + index + ": " + custom[i].min + ";\n";
-            } else {
-                if(i === (custom.length - 1)) {
-                    console.log('Your largest breakpoint should have a "max" property set to null!');
-                    lib += "$break-" + index + ": " + custom[i].min + ";\n";
-                } else {
-                    lib += "$break-" + index + ": (" + custom[i].min + ", calc(" + custom[index].min + " - 1px);\n";
-                }
+            buildLibrary(arguments[0].length);
+        } else {
+            framework = require('./frameworks/bootstrap3');
+            buildLibrary(framework.length);
+        }
+    } else {
+        throw new Error('Too many arguments passed to EasyQuery. Expected 0 or 1, got ' + arguments.length);
+    }
+
+    fs.writeFile('./_easy-query.scss', queued, function(err) {
+        if(err) {
+            throw new Error('Could not write _easy-query.scss. Error message: ' + ex);
+        }
+    });
+
+
+    function generateRange(key) {
+        return "-range: (" + framework[key] + "rem, calc(" + framework[key + 1] + " - 1px));\n";
+    }
+
+    function buildLibrary(length) {
+        switch(length) {
+            case 1: {
+                queued +=
+                    $sm + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px))';\n" +
+                    $lg + "-only: '#{$screen} and (min-width: " + framework[0] + "rem)';";
+                break;
+            }
+            case 2: {
+                queued +=
+                    $md + generateRange(0) +
+
+                    $sm + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px))';\n" +
+
+                    $md + "-only: '#{$screen} and (min-width: " + framework[0] + "rem) and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+                    $md + "-up: '#{$screen} and (min-width: " + framework[0] + "rem)';\n" +
+                    $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+
+                    $lg + "-only: '#{$screen} and (min-width: " + framework[1] + "rem)';\n";
+                break;
+            }
+            case 3: {
+                queued +=
+                    $sm + generateRange(0) +
+                    $md + generateRange(1) +
+
+                    $xs + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px))';\n" +
+
+                    $sm + "-only: '#{$screen} and (min-width: " + framework[0] + "rem) and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
+                    $sm + "-up: '#{$screen} and (min-width: " + framework[0] + "rem)';\n" +
+                    $sm + "-down: '#{$screen} and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
+
+                    $md + "-only: '#{$screen} and (min-width: " + framework[1] + "rem) and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+                    $md + "-up: '#{$screen} and (min-width: " + framework[1] + "rem)';\n" +
+                    $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+
+                    $lg + "-only: '#{$screen} and (min-width: " + framework[2] + "rem)';\n";
+                break;
+            }
+            case 4: {
+                queued +=
+                    $sm + generateRange(0)+
+                    $md + generateRange(1) +
+                    $lg + generateRange(2) +
+
+                    $xs + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px))';\n" +
+
+                    $sm + "-only: '#{$screen} and (min-width: " + framework[0] + "rem) and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
+                    $sm + "-up: '#{$screen} and (min-width: " + framework[0] + "rem)';\n" +
+                    $sm + "-down: '#{$screen} and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
+
+                    $md + "-only: '#{$screen} and (min-width: " + framework[1] + "rem) and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+                    $md + "-up: '#{$screen} and (min-width: " + framework[1] + "rem)';\n" +
+                    $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+
+                    $lg + "-only: '#{$screen} and (min-width: " + framework[2] + "rem) and (max-width: #{upper-bound(" + $lg + "-range)})';\n" +
+                    $lg + "-up: '#{$screen} and (min-width: " + framework[2] + "rem)';\n" +
+                    $lg + "-down: '#{$screen} and (max-width: #{upper-bound(" + $lg + "-range)})';\n" +
+
+                    $xl + "-only: '#{$screen} and (min-width: " + framework[3] + "rem)';\n";
+
+                break;
+            }
+            case 5: {
+                queued +=
+                    $sm + generateRange(0) +
+                    $md + generateRange(1) +
+                    $lg + generateRange(2) +
+                    $xl + generateRange(3) +
+
+                    $xs + "-only: '#{$screen} and (max-width: calc(" + framework[0] + "rem - 1px)';\n" +
+
+                    $sm + "-only: '#{$screen} and (min-width: " + framework[0] + "rem) and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
+                    $sm + "-up: '#{$screen} and (min-width: " + framework[3] + "rem)';\n" +
+                    $sm + "-down: '#{$screen} and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
+
+                    $md + "-only: '#{$screen} and (min-width: " + framework[1] + "rem) and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+                    $md + "-up: '#{$screen} and (min-width: " + framework[3] + "rem)';\n" +
+                    $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+
+                    $lg + "-only: '#{$screen} and (min-width: " + framework[2] + "rem) and (max-width: #{upper-bound(" + $lg + "-range)})';\n" +
+                    $lg + "-up: '#{$screen} and (min-width: " + framework[2] + "rem)';\n" +
+                    $lg + "-down: '#{$screen} and (max-width: #{upper-bound(" + $lg + "-range)})';\n" +
+
+                    $xl + "-only: '#{$screen} and (min-width: " + framework[3] + "rem) and (max-width: #{upper-bound(" + $xl + "-range)})';\n" +
+                    $xl + "-up: '#{$screen} and (min-width: " + framework[3] + "rem)';\n" +
+                    $xl + "-down: '#{$screen} and (max-width: #{upper-bound(" + $xl + "-range)})';\n" +
+
+                    $xx + "-only: '#{$screen} and (min-width: " + framework[4] + "rem);\n";
+                break;
             }
         }
-    } else if(arguments.length > 1 ) console.log('You cannot supply both a supported library name and a custom configuration object.');
-    else console.log('The given parameter was neither a valid library name string or custom configuration object.');
+    }
 };

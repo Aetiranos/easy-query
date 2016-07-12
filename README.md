@@ -14,17 +14,34 @@ Clone via Git: `git clone https://github.com/Aetiranos/easy-query.git`
 
 EasyQuery is a mobile-first responsive media query collection. With it, you have two ways of going about implementing it into your project.
 
-The first way is to simply copy the files you need directly into your project from the src folder. 
+**Method #1** is to simply copy the files you need directly into your project from the src folder. 
 
-The second is to require it in your SCSS file, passing the desired framework as a parameter like so:
+**Method #2** is to require it in your SCSS file, passing the desired framework as a parameter as depicted below. 
+
+If you do not specify a framework or supply a custom object, it will default to Bootstrap 3
+
+**NOTE: The ability to simply copy/paste framework SCSS files from EasyQuery to your project will be deprecated in a future release. Method #2 above is the recommended way.**
+
 
 ```
 var gulp = require('gulp'),
     easyquery = require('path/to/easy-query')('bootstrap4'),
     sass = require('gulp-sass');
-    
+
+```
+
+At the top of your parent SCSS file, import the easy-query file **first**. It will be automatically generated in the same directory as your gulpfile.
+```
+@import 'core/easy-query';
+@import 'core/variables';
+@import 'core/layout';
+@import 'core/theme';
+```
+
+Then just compile your sass like you normally would, including the easy-query scss file.
+```
 gulp.task('build', function() {
-    gulp.src(easyquery.path)
+    gulp.src('/path/to/your/scss/**/*.scss)
     .pipe(sass())
     .pipe(gulp.dest('/path/to/dest');
 }
@@ -47,41 +64,38 @@ Once you've gotten the above all set up, you can use it in your code like this:
 }
 ```
 
-You don't have to be restricted to using popular frameworks' breakpoints. You can easily define your own as an array of objects and pass it as the parameter when requiring EasyQuery. 
+You don't have to be restricted to using popular frameworks' breakpoints. You can easily define your own as an array of rem units and pass it as the parameter when requiring EasyQuery. 
 
 ```
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    easyquery = require('/path/to/easy-query/')([
-        // $break-1
-        {
-            "min": null,
-            "max": calc(30rem - 1px),
-        },
-        // $break-2
-        {
-            "min": 30rem,
-            "max": calc(40rem - 1px)
-        },
-        // $break-3
-        {
-            "min": 40rem,
-            "max": calc(75rem - 1px)
-            },
-        // $break-4
-        {
-            "min": 75rem,
-            "max": null
-        }
-        // Etcetera
-    ]);
+    easyquery = require('/path/to/easy-query/')([30, 45, 62, 75]);
 ```
 
 Or obviously passing in a prebuilt array, but the above was for structure example purposes. Be careful of where you place values - the breakpoints should ascend like above.
 
-When passing your own custom array of breakpoints, they will be auto named to `$break-#` where the number starts at 1 and ascends the more breakpoints you add. 
+When passing your own custom array of breakpoints, the breakpoint variable names will depend on how many elements are in the array.
 
-if you peruse the require method of implementing EasyQuery, you can use the `easyquery.path` property to get the filepath to the custom SCSS file that was created on the fly. You can of course then just parse it like any other SCSS file. 
+###Breakpoint Variables
+
+The following table describes each media query variable you can you use in your SCSS code.
+
+| 1 Breakpoint | 2 Breakpoints | 3 Breakpoints | 4 Breakpoints | 5 Breakpoints |
+|---|---|---|---|---|
+| $sm-only  | $sm-only | $xs-only | $xs-only | $xs-only |
+| $lg-only | $md-only | $sm-only | $sm-only | $sm-only |
+|  | $lg-only | $md-only | $md-only | $md-only |
+|  | $md-up | $lg-only | $lg-only | $lg-only |
+|  | $md-down | $sm-up | $xl-only | $xl-only |
+|  |  | $sm-down | $sm-up | $xx-only |
+|  |  | $md-up | $sm-down | $sm-up |
+|  |  | $md-down | $md-up | $sm-down |
+|  |  |  | $md-down | $md-up |
+|  |  |  | $lg-up | $md-down |
+|  |  |  | $lg-down | $lg-up |
+|  |  |  |  | $lg-down |
+|  |  |  |  | $xl-up |
+|  |  |  |  | $xl-down |
 
 For instructions on how to work with an automation pipeline, visit the [GulpJS Repo](https://github.com/gulpjs/gulp) or [GruntJS Repo](https://github.com/gruntjs/grunt).
 
@@ -95,32 +109,6 @@ For instructions on how to work with an automation pipeline, visit the [GulpJS R
 * Foundation 6 for Apps
 * Foundation 6 for Emails
 * Skeleton 2
-
-###Media Queries
-
-Here are a few examples of some of the media queries you can use, but there are others!
-
-`$rt-only` Only displays styles on viewports with a pixel width less than 320px.
-
-`$xs-only` Only displays styles on viewports with a pixel width between 321px and 480px.
-
-`$sm-only` Only displays styles on viewports with a pixel width between 481px and 768px.
-
-`$md-only` Only displays styles on viewports with a pixel width between 769px and 992px.
-
-`$lg-only` Only displays styles on viewports with a pixel width greater than 992px.
-
-`$xs-down` Only displays styles on viewports with a pixel width less than 480px.
-
-`$sm-down` Only displays styles on viewports with a pixel width less than 768px.
-
-`$md-down` Only displays styles on viewports with a pixel width less than 992px.
-
-`$xs-up` Only displays styles on viewports with a pixel width greater than 320px.
-
-`$sm-up` Only displays styles on viewports with a pixel width greater than 480px.
-
-`$md-up` Only displays styles on viewports with a pixel width greater than 768px.
 
 For more in-depth SCSS info, visit the [SASS Guide](http://sass-lang.com/guide).
 
