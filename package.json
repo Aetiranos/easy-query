@@ -1,6 +1,6 @@
 {
   "name": "easy-query",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "An easy to use, easy to customize sheet of SCSS media queries tailored for use alongside or without popular frameworks such as Bootstrap and Foundation.",
   "main": "src/easy-query.js",
   "repository": {
