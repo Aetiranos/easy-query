@@ -2,6 +2,12 @@
 
 EasyQuery is a porting of Foundation media queries to be usable with any web project, providing users with easy to use methods of shorthand writing customizable media queries. The package by default includes various SCSS files with settings set to the breakpoints of popular, existing frameworks such as Bootstrap 3 and Foundation 5. It is a compliment to the frameworks, enhancing but not replacing them. If you would rather just use the media queries without any framework, that works too!
 
+[![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/aetiranos/easy-query/master/LICENSE)
+[![Project version](https://img.shields.io/badge/version-1.0.6-orange.svg)](https://img.shields.io/badge/version-1.0.6-orange.svg)
+[![npm](https://img.shields.io/npm/dt/easy-query.svg?maxAge=2592000)](http://npmjs.org/package/easy-query)
+[![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000)](http://npmjs.org/package/easy-query)
+[![Bower](https://img.shields.io/bower/v/bootstrap.svg?maxAge=2592000)](https://GitHub.com/Aetiranos/easy-query)
+  
 ###Getting Started
 
 Install via NPM: `npm install easy-query`
@@ -18,14 +24,14 @@ EasyQuery is a mobile-first responsive media query collection. With it, you have
 
 **Method #2** is to require it in your SCSS file, passing the desired framework as a parameter as depicted below. 
 
-If you do not specify a framework or supply a custom object, it will default to Bootstrap 3
+If you do not specify a framework or supply a custom array, it will default to Bootstrap 3
 
 **NOTE: The ability to simply copy/paste framework SCSS files from EasyQuery to your project will be deprecated in a future release. Method #2 above is the recommended way.**
 
 
 ```
 var gulp = require('gulp'),
-    easyquery = require('path/to/easy-query')('bootstrap4'),
+    easyquery = require('easy-query')('bootstrap4'),
     sass = require('gulp-sass');
 
 ```
@@ -69,7 +75,7 @@ You don't have to be restricted to using popular frameworks' breakpoints. You ca
 ```
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    easyquery = require('/path/to/easy-query/')([30, 45, 62, 75]);
+    easyquery = require('easy-query/')([30, 45, 62, 75]);
 ```
 
 Or obviously passing in a prebuilt array, but the above was for structure example purposes. Be careful of where you place values - the breakpoints should ascend like above.
@@ -116,7 +122,7 @@ ___
 
 ###Contributing
 
-Anyone who is interested in contributing and building this project up, feel free to do so! The more, the merrier!
+Anyone who is interested in contributing and building this project up, is encouraged to do so! The more, the merrier!
 
 If you find any bugs or issues with the source code, be sure to submit an issue or submit a pull request with a fix.
 
