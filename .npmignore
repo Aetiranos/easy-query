@@ -2,5 +2,4 @@ node_modules/
 bower_components/
 npm-debug.log
 .idea/
-__eq__.scss
-gulpfile.js
+*/_easy-query.scss

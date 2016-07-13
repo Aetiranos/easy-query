@@ -1,0 +1,15 @@
+$xs-range: calc(30rem - 1px);
+$sm-range: (30rem, calc(48rem - 1px));
+$md-range: (48rem, calc(62rem - 1px));
+$lg-range: 62rem;
+
+$sm-down: '#{$screen} and (max-width: #{upper-bound($sm-range)})';
+$md-down: '#{$screen} and (max-width: #{upper-bound($md-range)})';
+
+$sm-up: '#{$screen} and (min-width: #{lower-bound($sm-range)})';
+$md-up: '#{$screen} and (min-width: #{lower-bound($md-range)})';
+
+$xs-only: '#{$screen} and (max-width: #{$xs-range})';
+$sm-only: '#{$screen} and (min-width: #{lower-bound($sm-range)}) and (max-width: #{upper-bound($sm-range)})';
+$md-only: '#{$screen} and (min-width: #{lower-bound($md-range)}) and (max-width: #{upper-bound($md-range)})';
+$lg-only: '#{$screen} and (min-width: #{$lg-range})';

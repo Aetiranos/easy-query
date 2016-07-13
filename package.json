@@ -1,11 +1,15 @@
 {
   "name": "easy-query",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "An easy to use, easy to customize sheet of SCSS media queries tailored for use alongside or without popular frameworks such as Bootstrap and Foundation.",
-  "main": "src/easy-query.js",
+  "main": "dist/easy-query.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Aetiranos/easy-query.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aetiranos/easy-query/issues",
+    "email": "aetiranos@crystaltome.com"
   },
   "keywords": [
     "bootstrap",
@@ -15,6 +19,9 @@
     "foundation",
     "foundation5",
     "foundation6",
+    "open framework",
+    "open",
+    "framework",
     "media queries",
     "query",
     "media",
@@ -27,5 +34,19 @@
     "CI"
   ],
   "author": "Derrick Wales <aetiranos@crystaltome.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.4",
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.9.2",
+    "karma": "^1.1.1",
+    "karma-browserify": "^5.0.5",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-jasmine": "^1.0.2"
+  }
 }
