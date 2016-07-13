@@ -29,7 +29,7 @@ module.exports = function EasyQuery(scss) {
                 if(typeof arguments[0] === 'string') {
                     framework = require('./frameworks/' + scss);
                 } else if(arguments[0].constructor === Array) {
-                    framework = arguments[0];
+                    framework = arguments[0].sort();
                 }
                 buildLibrary(framework);
                 console.dir(framework);

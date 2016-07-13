@@ -3,8 +3,9 @@
 EasyQuery is a porting of Foundation media queries to be usable with any web project, providing users with easy to use methods of shorthand writing customizable media queries. The package by default includes various SCSS files with settings set to the breakpoints of popular, existing frameworks such as Bootstrap 3 and Foundation 5. It is a compliment to the frameworks, enhancing but not replacing them. If you would rather just use the media queries without any framework, that works too!
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/aetiranos/easy-query/master/LICENSE)
-[![Project version](https://img.shields.io/badge/version-1.0.7-orange.svg)](https://img.shields.io/badge/version-1.0.7-orange.svg)
-[![npm](https://img.shields.io/npm/dt/easy-query.svg?maxAge=2592000)](http://npmjs.org/package/easy-query)
+[![Project version](https://img.shields.io/badge/version-1.0.9-orange.svg)](https://img.shields.io/badge/version-1.0.9-orange.svg)
+[![npm](https://img.shields.io/npm/dm/easy-query.svg?maxAge=2592000)](http://npmjs.org/package/easy-query)
+[![Travis](https://img.shields.io/travis/Aetiranos/easy-query.svg?maxAge=2592000)](https://travis-ci.org/Aetiranos/easy-query)
 [![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000)](http://npmjs.org/package/easy-query)
 [![Bower](https://img.shields.io/bower/v/bootstrap.svg?maxAge=2592000)](https://GitHub.com/Aetiranos/easy-query)
   
@@ -22,12 +23,13 @@ EasyQuery is a mobile-first responsive media query collection. With it, you have
 
 **Method #1** is to simply copy the files you need directly into your project from the src folder. 
 
-**Method #2** is to require it in your SCSS file, passing the desired framework as a parameter as depicted below. 
+**Method #2** is to require it in your Gulp file, passing the desired framework as a parameter as depicted below and @import-ing the scss file in your CI process. 
 
-If you do not specify a framework or supply a custom array, it will default to Bootstrap 3
+For instructions on how to work with an automation pipeline, visit the [GulpJS Repo](https://github.com/gulpjs/gulp) or [GruntJS Repo](https://github.com/gruntjs/grunt).
+
+If you do not specify a parameter when requiring the package, it will default to Bootstrap 3.
 
 **NOTE: The ability to simply copy/paste framework SCSS files from EasyQuery to your project will be deprecated in a future release. Method #2 above is the recommended way.**
-
 
 ```
 var gulp = require('gulp'),
@@ -36,9 +38,9 @@ var gulp = require('gulp'),
 
 ```
 
-At the top of your parent SCSS file, import the easy-query file **first**. It will be automatically generated in the same directory as your gulpfile.
+At the top of your parent SCSS file, import the easy-query file **first** this way the media queries will be available throughout your project. It will be automatically generated in the same directory as your gulpfile.
 ```
-@import 'core/easy-query';
+@import 'path/to/gulpfile/dir/easy-query';
 @import 'core/variables';
 @import 'core/layout';
 @import 'core/theme';
@@ -47,7 +49,10 @@ At the top of your parent SCSS file, import the easy-query file **first**. It wi
 Then just compile your sass like you normally would, including the easy-query scss file.
 ```
 gulp.task('build', function() {
-    gulp.src('/path/to/your/scss/**/*.scss)
+    gulp.src([
+        '/path/to/gulpfile/dir/easy-query.scss',
+        '/path/to/your/scss/**/*.scss'
+    ])
     .pipe(sass())
     .pipe(gulp.dest('/path/to/dest');
 }
@@ -75,16 +80,12 @@ You don't have to be restricted to using popular frameworks' breakpoints. You ca
 ```
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    easyquery = require('easy-query/')([30, 45, 62, 75]);
+    easyquery = require('easy-query')([30, 45, 62, 75]);
 ```
-
-Or obviously passing in a prebuilt array, but the above was for structure example purposes. Be careful of where you place values - the breakpoints should ascend like above.
-
-When passing your own custom array of breakpoints, the breakpoint variable names will depend on how many elements are in the array.
 
 ###Breakpoint Variables
 
-The following table describes each media query variable you can you use in your SCSS code.
+When passing your own custom array of breakpoints, the breakpoint variable names will depend on how many elements are in the array. The following table describes each media query variable you can you use in your SCSS code.
 
 | 1 Breakpoint | 2 Breakpoints | 3 Breakpoints | 4 Breakpoints | 5 Breakpoints |
 |---|---|---|---|---|
@@ -103,8 +104,6 @@ The following table describes each media query variable you can you use in your 
 |  |  |  |  | $xl-up |
 |  |  |  |  | $xl-down |
 
-For instructions on how to work with an automation pipeline, visit the [GulpJS Repo](https://github.com/gulpjs/gulp) or [GruntJS Repo](https://github.com/gruntjs/grunt).
-
 ###Provided Framework Definitions
 
 * Bootstrap 2
@@ -114,6 +113,7 @@ For instructions on how to work with an automation pipeline, visit the [GulpJS R
 * Foundation 6 for Sites
 * Foundation 6 for Apps
 * Foundation 6 for Emails
+* Open Framework
 * Skeleton 2
 
 For more in-depth SCSS info, visit the [SASS Guide](http://sass-lang.com/guide).

@@ -1,6 +1,6 @@
 /**
  * @description Breakpoint definitions, in REM units as numbers.
- * @url http://getbootstrap.com/2.3.2/
+ * @url https://openframework.stanford.edu/
  * @type {Array<number>}
  */
-module.exports = [30,48,62,75];
+module.exports = [30,61.25,75];

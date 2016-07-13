@@ -1,11 +1,15 @@
 {
   "name": "easy-query",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "An easy to use, easy to customize sheet of SCSS media queries tailored for use alongside or without popular frameworks such as Bootstrap and Foundation.",
   "main": "src/easy-query.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Aetiranos/easy-query.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aetiranos/easy-query/issues",
+    "email": "aetiranos@crystaltome.com"
   },
   "keywords": [
     "bootstrap",

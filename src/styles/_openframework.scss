@@ -1,0 +1,10 @@
+$sm-range: calc(30rem - 1px);
+$md-range: (61.25rem, calc(75rem - 1px));
+$lg-range: 75rem;
+
+$md-down: '#{$screen} and (max-width: #{upper-bound($md-range)})';
+$md-up: '#{$screen} and (min-width: #{lower-bound($md-range)})';
+
+$sm-only: '#{$screen} and (max-width: #{$xs-range})';
+$md-only: '#{$screen} and (min-width: #{lower-bound($md-range)}) and (max-width: #{upper-bound($md-range)})';
+$lg-only: '#{$screen} and (min-width: #{$lg-range})';
