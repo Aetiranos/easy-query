@@ -36,6 +36,7 @@
   "author": "Derrick Wales <aetiranos@crystaltome.com>",
   "license": "MIT",
   "devDependencies": {
+    "browserify": "^13.0.1",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.1",
     "gulp-plumber": "^1.1.0",
