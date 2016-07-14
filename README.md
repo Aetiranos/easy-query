@@ -48,10 +48,7 @@ At the top of your parent SCSS file, import the easy-query file **first** this w
 Then just compile your sass like you normally would, including the easy-query scss file.
 ```
 gulp.task('build', function() {
-    gulp.src([
-        '/path/to/gulpfile/dir/easy-query.scss',
-        '/path/to/your/scss/**/*.scss'
-    ])
+    gulp.src('/path/to/your/scss/**/*.scss')
     .pipe(sass())
     .pipe(gulp.dest('/path/to/dest');
 }
