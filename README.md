@@ -3,7 +3,7 @@
 EasyQuery is a porting of Foundation media queries to be usable with any web project, providing users with easy to use methods of shorthand writing customizable media queries. The package by default includes various SCSS files with settings set to the breakpoints of popular, existing frameworks such as Bootstrap 3 and Foundation 5. It is a compliment to the frameworks, enhancing but not replacing them. If you would rather just use the media queries without any framework, that works too!
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/aetiranos/easy-query/master/LICENSE)
-[![Project version](https://img.shields.io/badge/version-1.1.1-green.svg)](https://img.shields.io/badge/version-1.1.1-green.svg)
+[![Project version](https://img.shields.io/badge/version-1.1.2-green.svg)](https://img.shields.io/badge/version-1.1.2-green.svg)
 [![Travis](https://img.shields.io/travis/Aetiranos/easy-query.svg?maxAge=2592000)](https://travis-ci.org/Aetiranos/easy-query)
 [![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000)](http://npmjs.org/package/easy-query)
 [![Bower](https://img.shields.io/bower/v/bootstrap.svg?maxAge=2592000)](https://GitHub.com/Aetiranos/easy-query)
