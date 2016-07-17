@@ -46,12 +46,12 @@ module.exports = function EasyQuery(scss) {
 
     fs.writeFile('./_easy-query.scss', queued, function(err) {
         if(err) {
-            throw new Error('Could not write _easy-query.scss. Error message: ' + ex);
+            throw new Error('Could not write _easy-query.scss. Error message: ' + err);
         }
     });
     
     function generateRange(framework,key) {
-        return "-range: (" + framework[key] + "rem, calc(" + framework[key + 1] + " - 1px));\n";
+        return "-range: (" + framework[key] + "rem, calc(" + framework[key + 1] + "rem - 1px));\n";
     }
 
     function buildLibrary(framework) {
