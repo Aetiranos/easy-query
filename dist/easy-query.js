@@ -24,7 +24,7 @@ var fs = require("fs");
 module.exports = function EasyQuery(scss) {
     var framework,
         $rpx = .0625;
-    var queued = "$screen: 'only screen' !default;\n\n@function lower-bound($range) {\n\n  @if length($range) <= 0 {\n    @return 0;\n  }\n\n  @return nth($range, 1);\n}\n\n@function upper-bound($range) {\n\n  @if length($range) < 2 {\n    @return 999999999999;\n  }\n\n  @return nth($range, 2);\n}\n\n";
+    var queued = "$screen: 'only screen' !default;\n\n@function lower-bound($range) {\n\n\t@if length($range) <= 0 {\n\t\t@return 0;\n\t}\n\n\t@return nth($range, 1);\n}\n\n@function upper-bound($range) {\n\n \t@if length($range) < 2 {\n\t\t@return 999999999999;\n \t}\n\n\t@return nth($range, 2);\n}\n\n";
     if(arguments.length === 0 || arguments.length === 1) {
         if((arguments.length === 1 && typeof arguments[0] === 'string' ) || (arguments.length === 1 && arguments[0].constructor === Array)) {
             try {
@@ -63,11 +63,11 @@ module.exports = function EasyQuery(scss) {
                 queued +=
                     // Breakpoint Variables
                     $sm + "-only: '#{$screen} and (max-width: " + (framework[0] - $rpx) + "rem)';\n" +
-                    $lg + "-only: '#{$screen} and (min-width: " + framework[0] + "rem)';\n" +
+                    $lg + "-only: '#{$screen} and (min-width: " + framework[0] + "rem)';\n\n" +
 
                     // Breakpoint Classes
-                    '.' + $sm + "-only {\n@media #{" + $lg + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-only {\n@media #{" + $sm + "-only} {\ndisplay: none;\n}\n}";
+                    ".sm-only {\n\t@media #{" + $lg + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".lg-only {\n\t@media #{" + $sm + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n";
                 break;
             } case 2: {
                 queued +=
@@ -79,14 +79,14 @@ module.exports = function EasyQuery(scss) {
                     $md + "-only: '#{$screen} and (min-width: " + framework[0] + "rem) and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
                     $lg + "-only: '#{$screen} and (min-width: " + framework[1] + "rem)';\n" +
                     $md + "-up: '#{$screen} and (min-width: " + framework[0] + "rem)';\n" +
-                    $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+                    $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n\n" +
 
                     // Breakpoint Classes
-                    '.' + $sm + "-only {\n@media #{" + $md + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-only {\n@media #{" + $sm + "-only},\n@media #{" + $lg + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-only {\n@media #{" + $md + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-up {\n@media #{" + $sm + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-down {\n@media #{" + $lg + "-only} {\ndisplay: none;\n}\n}";
+                    ".sm-only {\n\t@media #{" + $md + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-only {\n\t@media #{" + $sm + "-only} {\n\t\tdisplay: none;\n\t}\n\t@media #{" + $lg + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".lg-only {\n\t@media #{" + $md + "-down} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-up {\n\t@media #{" + $sm + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-down {\n\t@media #{" + $lg + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n";
                 break;
             } case 3: {
                 queued +=
@@ -102,17 +102,17 @@ module.exports = function EasyQuery(scss) {
                     $sm + "-up: '#{$screen} and (min-width: " + framework[0] + "rem)';\n" +
                     $md + "-up: '#{$screen} and (min-width: " + framework[1] + "rem)';\n" +
                     $sm + "-down: '#{$screen} and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
-                    $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
+                    $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n\n" +
 
                     // Breakpoint Classes
-                    '.' + $xs + "-only {\n@media #{" + $sm + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-only {\n@media #{" + $xs + "-only},\n@media #{" + $md + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-only {\n@media #{" + $sm + "-down},\n@media #{" + $lg + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-only {\n@media #{" + $md + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-up {\n@media #{" + $xs + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-up {\n@media #{" + $sm + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-down {\n@media #{" + $md + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-down {\n@media #{" + $lg + "-only} {\ndisplay: none;\n}\n}";
+                    ".xs-only {\n\t@media #{" + $sm + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".sm-only {\n\t@media #{" + $xs + "-only} {\n\t\tdisplay: none;\n\t}\n\t@media #{" + $md + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-only {\n\t@media #{" + $sm + "-down} {\n\t\tdisplay: none;\n\t}\n\t@media #{" + $lg + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".lg-only {\n\t@media #{" + $md + "-down} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".sm-up {\n\t@media #{" + $xs + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-up {\n\t@media #{" + $sm + "-down} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".sm-down {\n\t@media #{" + $md + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-down {\n\t@media #{" + $lg + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n";
                 break;
             } case 4: {
                 queued +=
@@ -132,20 +132,20 @@ module.exports = function EasyQuery(scss) {
                     $lg + "-up: '#{$screen} and (min-width: " + framework[2] + "rem)';\n" +
                     $sm + "-down: '#{$screen} and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
                     $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
-                    $lg + "-down: '#{$screen} and (max-width: #{upper-bound(" + $lg + "-range)})';\n" +
+                    $lg + "-down: '#{$screen} and (max-width: #{upper-bound(" + $lg + "-range)})';\n\n" +
 
                     // Breakpoint Classes
-                    '.' + $xs + "-only {\n@media #{" + $sm + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-only {\n@media #{" + $xs + "-only},\n@media #{" + $md + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-only {\n@media #{" + $sm + "-down},\n@media #{" + $lg + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-only {\n@media #{" + $md + "-down},\n@media #{" + $xl + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $xl + "-only {\n@media #{" + $lg + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-up {\n@media #{" + $xs + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-up {\n@media #{" + $sm + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-up {\n@media #{" + $md + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-down {\n@media #{" + $md + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-down {\n@media #{" + $lg + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-down {\n@media #{" + $xl + "-only} {\ndisplay: none;\n}\n}";
+                    ".xs-only {\n\t@media #{" + $sm + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".sm-only {\n\t@media #{" + $xs + "-only} {\n\t\tdisplay: none;\n\t}\n\t@media #{" + $md + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-only {\n\t@media #{" + $sm + "-down} {\n\t\tdisplay: none;\n\t}\n\t@media #{" + $lg + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".lg-only {\n\t@media #{" + $md + "-down} {\n\t\tdisplay: none;\n\t}\n\t@media #{" + $xl + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".xl-only {\n\t@media #{" + $lg + "-down} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".sm-up {\n\t@media #{" + $xs + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-up {\n\t@media #{" + $sm + "-down} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".lg-up {\n\t@media #{" + $md + "-down} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".sm-down {\n\t@media #{" + $md + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-down {\n\t@media #{" + $lg + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".lg-down {\n\t@media #{" + $xl + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n";
                 break;
             } case 5: {
                 queued +=
@@ -169,23 +169,23 @@ module.exports = function EasyQuery(scss) {
                     $sm + "-down: '#{$screen} and (max-width: #{upper-bound(" + $sm + "-range)})';\n" +
                     $md + "-down: '#{$screen} and (max-width: #{upper-bound(" + $md + "-range)})';\n" +
                     $lg + "-down: '#{$screen} and (max-width: #{upper-bound(" + $lg + "-range)})';\n" +
-                    $xl + "-down: '#{$screen} and (max-width: #{upper-bound(" + $xl + "-range)})';\n" +
+                    $xl + "-down: '#{$screen} and (max-width: #{upper-bound(" + $xl + "-range)})';\n\n" +
 
                     // Breakpoint Classes
-                    '.' + $xs + "-only {\n@media #{" + $sm + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-only {\n@media #{" + $xs + "-only},\n@media #{" + $md + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-only {\n@media #{" + $sm + "-down},\n@media #{" + $lg + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-only {\n@media #{" + $md + "-down},\n@media #{" + $xl + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $xl + "-only {\n@media #{" + $lg + "-down},\n@media #{" + $xx + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $xx + "-only {\n@media #{" + $xl + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-up {\n@media #{" + $xs + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-up {\n@media #{" + $sm + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-up {\n@media #{" + $md + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $xl + "-up {\n@media #{" + $lg + "-down} {\ndisplay: none;\n}\n}" +
-                    '.' + $sm + "-down {\n@media #{" + $md + "-up} {\ndisplay: none;\n}\n}" +
-                    '.' + $md + "-down {\n@media #{" + $lg + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $lg + "-down {\n@media #{" + $xl + "-only} {\ndisplay: none;\n}\n}" +
-                    '.' + $xl + "-down {\n@media #{" + $xx + "-only} {\ndisplay: none;\n}\n}";
+                    ".xs-only {\n@media #{" + $sm + "-up} {\ndisplay: none;\n}\n}\n\n" +
+                    ".sm-only {\n@media #{" + $xs + "-only} {\ndisplay: none;\n}\n\t@media #{" + $md + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".md-only {\n@media #{" + $sm + "-down} {\ndisplay: none;\n}\n\t@media #{" + $lg + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".lg-only {\n@media #{" + $md + "-down} {\ndisplay: none;\n}\n\t@media #{" + $xl + "-up} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".xl-only {\n@media #{" + $lg + "-down} {\ndisplay: none;\n}\n\t@media #{" + $xx + "-only} {\n\t\tdisplay: none;\n\t}\n}\n\n" +
+                    ".xx-only {\n@media #{" + $xl + "-down} {\ndisplay: none;\n}\n}\n\n" +
+                    ".sm-up {\n@media #{" + $xs + "-only} {\ndisplay: none;\n}\n}\n\n" +
+                    ".md-up {\n@media #{" + $sm + "-down} {\ndisplay: none;\n}\n}\n\n" +
+                    ".lg-up {\n@media #{" + $md + "-down} {\ndisplay: none;\n}\n}\n\n" +
+                    ".xl-up {\n@media #{" + $lg + "-down} {\ndisplay: none;\n}\n}\n\n" +
+                    ".sm-down {\n@media #{" + $md + "-up} {\ndisplay: none;\n}\n}\n\n" +
+                    ".md-down {\n@media #{" + $lg + "-only} {\ndisplay: none;\n}\n}\n\n" +
+                    ".lg-down {\n@media #{" + $xl + "-only} {\ndisplay: none;\n}\n}\n\n" +
+                    ".xl-down {\n@media #{" + $xx + "-only} {\ndisplay: none;\n}\n}\n\n";
                 break;
             }
         }
