@@ -2,6 +2,18 @@
 
 
 
+###1.1.6
+
+#####Added
+
+#####Removed
+
+#####Modified
+
+* Hotfixed mistake where gulp wasn't ran and thus `dist/` wasn't populated with updates from 1.1.5.
+
+
+
 ###1.1.5
 
 #####Added
