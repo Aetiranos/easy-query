@@ -3,7 +3,7 @@
 An easy to use, easy to customize sheet of SCSS media queries tailored for use alongside or without popular frameworks such as Bootstrap and Foundation.
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/aetiranos/easy-query/master/LICENSE)
-[![Project version](https://img.shields.io/badge/version-1.1.5-green.svg)](https://img.shields.io/badge/version-1.1.5-green.svg)
+[![Project version](https://img.shields.io/badge/version-1.1.6-green.svg)](https://img.shields.io/badge/version-1.1.6-green.svg)
 [![Travis](https://img.shields.io/travis/Aetiranos/easy-query.svg?maxAge=2592000)](https://travis-ci.org/Aetiranos/easy-query)
 [![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000)](http://npmjs.org/package/easy-query)
 [![Bower](https://img.shields.io/bower/v/bootstrap.svg?maxAge=2592000)](https://GitHub.com/Aetiranos/easy-query)
