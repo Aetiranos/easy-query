@@ -1,6 +1,6 @@
 {
   "name": "easy-query",
-  "version": "1.0.4",
+  "version": "1.1.5",
   "description": "An easy to use, easy to customize sheet of SCSS media queries tailored for use alongside or without popular frameworks such as Bootstrap and Foundation.",
   "main": "queries.scss",
   "authors": [
@@ -10,14 +10,29 @@
     "type": "git",
     "url": "https://github.com/Aetiranos/easy-query.git"
   },
-  "license": "GPL",
+  "license": "MIT",
   "keywords": [
+    "easy",
+    "bootstrap",
+    "bootstrap 2",
+    "bootstrap 3",
+    "bootstrap 4",
+    "foundation",
+    "foundation 5",
+    "foundation 6",
+    "open framework",
+    "open",
+    "framework",
+    "media queries",
+    "query",
     "media",
-    "queries",
+    "gulp",
+    "sass",
     "scss",
     "responsive",
-    "development",
-    "tools"
+    "development tools",
+    "tools",
+    "CI"
   ],
   "homepage": "https://github.com/Aetiranos/easy-query/"
 }

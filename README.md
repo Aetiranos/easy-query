@@ -1,13 +1,14 @@
 #EasyQuery
 
-EasyQuery is a porting of Foundation media queries to be usable with any web project, providing users with easy to use methods of shorthand writing customizable media queries. The package by default includes various SCSS files with settings set to the breakpoints of popular, existing frameworks such as Bootstrap 3 and Foundation 5. It is a compliment to the frameworks, enhancing but not replacing them. If you would rather just use the media queries without any framework, that works too!
+An easy to use, easy to customize sheet of SCSS media queries tailored for use alongside or without popular frameworks such as Bootstrap and Foundation.
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/aetiranos/easy-query/master/LICENSE)
-[![Project version](https://img.shields.io/badge/version-1.1.4-green.svg)](https://img.shields.io/badge/version-1.1.4-green.svg)
+[![Project version](https://img.shields.io/badge/version-1.1.5-green.svg)](https://img.shields.io/badge/version-1.1.5-green.svg)
 [![Travis](https://img.shields.io/travis/Aetiranos/easy-query.svg?maxAge=2592000)](https://travis-ci.org/Aetiranos/easy-query)
 [![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000)](http://npmjs.org/package/easy-query)
 [![Bower](https://img.shields.io/bower/v/bootstrap.svg?maxAge=2592000)](https://GitHub.com/Aetiranos/easy-query)
-  
+[![NPM](https://nodei.co/npm/easy-query.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/easy-query.png?downloads=true&downloadRank=true&stars=true)
+
 ###Getting Started
 
 Install via NPM: `npm install easy-query`
@@ -31,15 +32,16 @@ If you do not specify a parameter when requiring the package, it will default to
 **NOTE: The ability to simply copy/paste framework SCSS files from EasyQuery to your project will be deprecated in a future release. Method #2 above is the recommended way.**
 
 ```
+// require( ) EasyQuery, passing your choice of framework as a string or an custom array of breakpoints (in EM/REM units).
 var gulp = require('gulp'),
-    easyquery = require('easy-query')('bootstrap4'),
+    easyquery = require('easy-query')('bootstrap4'), // 'bootstrap4' could have been [30, 45, 64, 75] instead
     sass = require('gulp-sass');
 
 ```
 
 At the top of your parent SCSS file, import the easy-query file **first** this way the media queries will be available throughout your project. It will be automatically generated in the same directory as your gulpfile.
 ```
-@import 'path/to/gulpfile/dir/easy-query';
+@import 'path/to/gulpfiles/dir/easy-query';
 @import 'core/variables';
 @import 'core/layout';
 @import 'core/theme';
@@ -50,7 +52,7 @@ Then just compile your sass like you normally would, including the easy-query sc
 gulp.task('build', function() {
     gulp.src('/path/to/your/scss/**/*.scss')
     .pipe(sass())
-    .pipe(gulp.dest('/path/to/dest');
+    .pipe(gulp.dest('/path/to/dest/');
 }
 ```
 
@@ -61,30 +63,26 @@ Once you've gotten the above all set up, you can use it in your code like this:
     display: block;
     width: auto;
     
+    // Only resolutions within $md-range or higher will have this css applied to it.
+    // All resolutions lower will fall back to the element's default, which is 'block' set by the base class definition.
     @media #{$md-up} {
         display: inline-block;
     }
     
+    // Only resolutions within $lg-range will have this width.
+    // Every resolution below this will fall back to the element's default, which is 'auto' set by the base class definition.
     @media #{$lg-only} {
         width: 100%;
     }
 }
 ```
 
-You don't have to be restricted to using popular frameworks' breakpoints. You can easily define your own as an array of rem units and pass it as the parameter when requiring EasyQuery. 
-
-```
-var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    easyquery = require('easy-query')([30, 45, 62, 75]);
-```
-
 ###Breakpoint Variables
 
 When passing your own custom array of breakpoints, the breakpoint variable names will depend on how many elements are in the array. The following table describes each media query variable you can you use in your SCSS code.
 
-| 1 Breakpoint | 2 Breakpoints | 3 Breakpoints | 4 Breakpoints | 5 Breakpoints |
-|---|---|---|---|---|
+| 1 Breakpoint | 2 | 3 | 4 | 5 |
+|:---:|:---:|:---:|:---:|:---:|
 | $sm-only  | $sm-only | $xs-only | $xs-only | $xs-only |
 | $lg-only | $md-only | $sm-only | $sm-only | $sm-only |
 |  | $lg-only | $md-only | $md-only | $md-only |
@@ -99,6 +97,26 @@ When passing your own custom array of breakpoints, the breakpoint variable names
 |  |  |  |  | $lg-down |
 |  |  |  |  | $xl-up |
 |  |  |  |  | $xl-down |
+
+###Breakpoint Classes
+As of 1.1.5, EasyQuery also produces a set of classes that mock your breakpoint variables so as to easily manipulate display or hide DOM elements with them without being forced to hardcode anything in SCSS. The generally work the same as Bootstrap's built-in grid variables (.hidden-xs, .visible-xs) just a lot less verbose.
+
+```
+<div class="sm-down">
+    This will only appear on resolutions within the range of $sm-range and smaller.
+    It will be hidden on all resolutions of $md-up.
+</div>
+```
+
+It is the exact same as writing the below class definition in your SCSS file manually. It is what is generated for you automatically for use with these classes.
+
+```
+.sm-down {
+    @media #{$md-up} {
+        display: none;
+    }
+}
+```
 
 ###Provided Framework Definitions
 
@@ -118,8 +136,10 @@ ___
 
 ###Contributing
 
-Anyone who is interested in contributing and building this project up, is encouraged to do so! The more, the merrier!
+Anyone who is interested in contributing and building this project up, you're encouraged to do so! Collaboration is welcome!
 
 If you find any bugs or issues with the source code, be sure to submit an issue or submit a pull request with a fix.
 
-If you have a feature request, submit an issue ticket (particularly if this is a major request). For smaller requests, feel free to submit a pull request with the requested feature code.
+If you have a feature request, submit an issue ticket (particularly if this is a major request). 
+
+For smaller requests, feel free to submit a pull request with the requested feature code.
