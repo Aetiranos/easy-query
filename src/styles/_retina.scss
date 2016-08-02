@@ -1,8 +1,0 @@
-@import 'base';
-
-// $rt-range: (0px, 320px)
-$rt-range: (0, 20rem);
-
-$rt-only: '#{$screen} and (max-width: #{upper-bound($rt-range)})';
-
-// NOTE: If utilizing $rt-range, be sure to adjust the $xs-range to have a lower-bound at $rt-range's upper-bound.

@@ -1,0 +1,172 @@
+[
+  {
+    "E2L001": {
+      "code": "E2L001",
+      "message": "Could not import the specified library.",
+      "severity": 2,
+      "title": "Import Failure",
+      "type": "Error"
+    },
+    "E2L002": {
+      "code": "E2L002",
+      "message": "The default library is not accessible.",
+      "severity": 2,
+      "title": "File Not Found",
+      "type": "Error"
+    },
+    "E2G001": {
+      "code": "E2G001",
+      "message": "Invalid Configuration: Language selection passed to EasyQuery is not a supported language. Use sass, less, or scss.",
+      "severity": 2,
+      "title": "",
+      "type": "Error"
+    },
+    "E2G002": {
+      "code": "E2G002",
+      "message": "Object:buildCSS must be a boolean value.",
+      "severity": 2,
+      "title": "Invalid Configuration",
+      "type": "Error"
+    },
+    "E2G003": {
+      "code": "E2G003",
+      "message": "Object:buildVars must be a boolean value.",
+      "severity": 2,
+      "title": "Invalid Configuration",
+      "type": "Error"
+    },
+    "E2G004": {
+      "code": "E2G004",
+      "message": "Array passed must contain only string representations of either pixel or EM/REM units. ",
+      "severity": 2,
+      "title": "Invalid Configuration",
+      "type": "Error"
+    },
+    "E2G005": {
+      "code": "E2G005",
+      "message": "Parameter passed to config.lib is invalid. Must be an array of strings representing breakpoints or the name of a valid built-in library. ",
+      "severity": 2,
+      "title": "Invalid Configuration",
+      "type": "Error"
+    },
+    "E2G006": {
+      "code": "E2G006",
+      "message": "Values stored in a custom array passed to EasyQuery must instances of string.",
+      "severity": 2,
+      "title": "Invalid Configuration",
+      "type": "Error"
+    },
+    "E2G007": {
+      "code": "E2G007",
+      "message": "Number of supplied breakpoints were out of bounds. Supply only 1 to 5 breakpoints.",
+      "severity": 2,
+      "title": "Invalid Configuration",
+      "type": "Error"
+    },
+    "E2G008": {
+      "code": "E2G008",
+      "message": "Supplied parameter for count is not a number.",
+      "severity": 2,
+      "title": "Invalid Configuration",
+      "type": "Error"
+    },
+    "E1G109": {
+      "code": "E1G109",
+      "message": "Cannot set specified language. It is incompatible.",
+      "severity": 1,
+      "title": "Invalid Configuration",
+      "type": "Warning"
+    },
+    "E1G110": {
+      "code": "E1G110",
+      "message": "Could not set remSize. It is incompatible.",
+      "severity": 1,
+      "title": "Could not fetch member.",
+      "type": "Warning"
+    },
+    "E0G111": {
+      "code": "E0G111",
+      "message": "The current configuration does not support exporting CSS.",
+      "severity": 0,
+      "title": "Contrary Configuration",
+      "type": "Information"
+    },
+    "E0G112": {
+      "code": "E0G112",
+      "message": "The current configuration does not support exporting variables.",
+      "severity": 0,
+      "title": "Contrary Configuration",
+      "type": "Information"
+    },
+    "E2G213": {
+      "code": "E2G213",
+      "message": "There are no variables to export.",
+      "severity": 2,
+      "title": "Contrary Configuration",
+      "type": "Error"
+    },
+    "E2I001": {
+      "code": "E2I001",
+      "message": "No breakpoints were supplied to the build function.",
+      "severity": 2,
+      "title": "Internal Error",
+      "type": "Error"
+    },
+    "E2F001": {
+      "code": "E2F001",
+      "message": "Could not write to file.",
+      "severity": 2,
+      "title": "File IO",
+      "type": "Error"
+    },
+    "E1P001": {
+      "code": "E1P001",
+      "message": "Could not fetch language.",
+      "severity": 1,
+      "title": "Could not fetch member.",
+      "type": "Warning"
+    },
+    "E1P002": {
+      "code": "E1P002",
+      "message": "Could not fetch remSize.",
+      "severity": 1,
+      "title": "Could not fetch member.",
+      "type": "Warning"
+    },
+    "E1P003": {
+      "code": "E1P003",
+      "message": "Could not fetch library.",
+      "severity": 1,
+      "title": "Could not fetch member.",
+      "type": "Warning"
+    },
+    "E1P004": {
+      "code": "E1P004",
+      "message": "Could not fetch languages supported.",
+      "severity": 1,
+      "title": "Could not fetch member.",
+      "type": "Warning"
+    },
+    "E1P005": {
+      "code": "E1P005",
+      "message": "Could not fetch builtCSS.",
+      "severity": 1,
+      "title": "Could not fetch member.",
+      "type": "Warning"
+    },
+    "E1P006": {
+      "code": "E1P006",
+      "message": "Could not fetch builtVars.",
+      "severity": 1,
+      "title": "Could not fetch member.",
+      "type": "Warning"
+    },
+    "E1P007": {
+      "code": "E1P007",
+      "message": "Could not fetch debugMode.",
+      "severity": 1,
+      "title": "Could not fetch member.",
+      "type": "Warning"
+    }
+  }
+]
